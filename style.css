@@ -1656,3 +1656,77 @@ img {
   margin: 0 auto 18px;
   filter: drop-shadow(0 0 18px rgba(106, 13, 173, .55));
 }
+
+
+/* Alicia Mini Apps — admin panel opened after 5 taps on version */
+.alicia-admin-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,.62);
+  backdrop-filter: blur(10px);
+}
+.alicia-admin-panel[hidden] { display: none !important; }
+.alicia-admin-box {
+  position: relative;
+  width: min(460px, 100%);
+  max-height: 86vh;
+  overflow: auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 25px 70px rgba(0,0,0,.28);
+}
+.alicia-admin-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.alicia-admin-subtitle { font-size: 13px; opacity: .65; margin-bottom: 20px; }
+.alicia-admin-box label { display:block; font-size:12px; font-weight:700; margin:12px 0 6px; }
+.alicia-admin-box input {
+  width:100%; box-sizing:border-box; padding:13px 14px; border:1px solid #ddd;
+  border-radius:13px; outline:none;
+}
+.alicia-admin-box button:not(#adminCloseBtn) {
+  width:100%; margin-top:12px; padding:13px 16px; border:0; border-radius:13px;
+  background:#6a0dad; color:#fff; font-weight:800; cursor:pointer;
+}
+#adminCloseBtn {
+  position:absolute; right:12px; top:10px; border:0; background:transparent;
+  font-size:28px; cursor:pointer;
+}
+.alicia-admin-payment {
+  margin-top:12px; padding:14px; border-radius:15px; background:#f6f3fa;
+}
+.alicia-admin-payment b { display:block; margin-bottom:5px; }
+.alicia-admin-payment input { margin-top:8px; }
+
+
+/* Telegram profile photo */
+.alicia-telegram-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: #eee;
+}
+.alicia-stars-payment { margin: 16px; }
+.alicia-stars-payment-card {
+  border-radius: 22px;
+  padding: 18px;
+  background: linear-gradient(145deg,#fff,#f5edff);
+  box-shadow: 0 12px 30px rgba(106,13,173,.12);
+}
+.alicia-stars-payment-title { font-size:20px; font-weight:800; }
+.alicia-stars-payment-subtitle { font-size:13px; opacity:.68; margin:5px 0 14px; }
+.alicia-stars-plans { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.alicia-stars-plan {
+  border:0; border-radius:15px; padding:12px 7px; background:#fff;
+  color:#6a0dad; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+.alicia-stars-plan strong,.alicia-stars-plan span { display:block; }
+.alicia-stars-plan span { font-size:11px; margin-top:4px; opacity:.7; }
+.alicia-stars-payment-status { font-size:12px; margin-top:12px; min-height:18px; }
+@media(max-width:380px){.alicia-stars-plans{grid-template-columns:1fr;}}

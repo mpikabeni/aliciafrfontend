@@ -535,7 +535,7 @@ async function generateImage() {
 
 
         showToast(
-            "Le générateur d'images sera connecté à l'API.",
+            "Génération prête.",
             "ri-sparkling-2-line"
         );
 
@@ -1316,4 +1316,271 @@ document.addEventListener("DOMContentLoaded",addTouchEffects);
       console.warn("[Alicia Backend]", error.message);
     }
   });
+})();
+
+
+// Image fallback for Telegram users without an accessible profile photo.
+document.addEventListener("DOMContentLoaded", () => {
+  [document.getElementById("userPhoto"), document.getElementById("profilePhoto")].forEach(img => {
+    if (!img) return;
+    img.addEventListener("error", () => {
+      if (!img.dataset.fallbackApplied) {
+        img.dataset.fallbackApplied = "1";
+        img.src = "assets/nexa-logo.png";
+      }
+    });
+  });
+});
+
+
+/* ============================================================
+   ALICIA MINI APPS — ADMIN ACCESS
+   Five taps on the displayed app version opens the admin panel.
+   Backend remains the authority for admin permissions.
+   ============================================================ */
+(() => {
+  const VERSION_SELECTORS = [
+    "#appVersion", "#version", ".app-version", ".version",
+    "[data-version]", ".settings-version", "#settingsVersion"
+  ];
+
+  let taps = 0;
+  let resetTimer = null;
+
+  function findVersionElements() {
+    const found = [];
+    VERSION_SELECTORS.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => found.push(el));
+    });
+    // Fallback: elements whose visible text looks like a version.
+    document.querySelectorAll("body *").forEach(el => {
+      if (el.children.length === 0 && /^v?\d+(?:\.\d+){1,3}$/i.test((el.textContent || "").trim())) {
+        found.push(el);
+      }
+    });
+    return [...new Set(found)];
+  }
+
+  function openAdminPanel() {
+    const panel = document.getElementById("adminAccessPanel");
+    if (!panel) return;
+    panel.hidden = false;
+    const input = document.getElementById("adminUserIdInput");
+    if (input) input.focus();
+    if (window.Telegram?.WebApp?.HapticFeedback) {
+      window.Telegram.WebApp.HapticFeedback.impactOccurred("medium");
+    }
+  }
+
+  function closeAdminPanel() {
+    const panel = document.getElementById("adminAccessPanel");
+    if (panel) panel.hidden = true;
+  }
+
+  function fiveTapHandler() {
+    taps++;
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => { taps = 0; }, 1500);
+    if (taps >= 5) {
+      taps = 0;
+      openAdminPanel();
+    }
+  }
+
+  function loadAdminPayments() {
+    const list = document.getElementById("adminPaymentsList");
+    const idInput = document.getElementById("adminUserIdInput");
+    if (!list || !idInput) return;
+    const adminId = Number(idInput.value);
+    if (!adminId) {
+      list.innerHTML = "<div>Entre ton ID Telegram administrateur.</div>";
+      return;
+    }
+    list.innerHTML = "Chargement des paiements…";
+    fetch(`${window.AliciaBackend?.url || "https://aliciaminipps.onrender.com"}/admin/payments?admin_user_id=${encodeURIComponent(adminId)}`)
+      .then(async r => {
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.detail || "Accès refusé");
+        return data;
+      })
+      .then(rows => {
+        if (!rows.length) {
+          list.innerHTML = "<div>Aucun paiement enregistré.</div>";
+          return;
+        }
+        list.innerHTML = rows.map(p => {
+          const pending = p.status === "paid";
+          return `
+            <div class="alicia-admin-payment">
+              <b>Paiement #${p.id}</b>
+              <div>Utilisateur : ${p.telegram_id}</div>
+              <div>Stars : ${p.stars}</div>
+              <div>Statut : ${p.status}</div>
+              ${pending ? `
+                <input type="number" min="0" placeholder="Crédits à ajouter" data-credit-for="${p.id}">
+                <button type="button" data-validate-payment="${p.id}">Valider et ajouter les crédits</button>
+              ` : ""}
+            </div>`;
+        }).join("");
+
+        list.querySelectorAll("[data-validate-payment]").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const paymentId = Number(btn.dataset.validatePayment);
+            const input = list.querySelector(`[data-credit-for="${paymentId}"]`);
+            const credits = Number(input?.value || 0);
+            const adminUserId = Number(idInput.value);
+            if (!credits) return alert("Indique le nombre de crédits à ajouter.");
+            btn.disabled = true;
+            try {
+              const r = await fetch(`${window.AliciaBackend?.url || "https://aliciaminipps.onrender.com"}/admin/payments/${paymentId}/validate`, {
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({admin_user_id: adminUserId, credits})
+              });
+              const data = await r.json();
+              if (!r.ok) throw new Error(data.detail || "Validation impossible");
+              alert(`Paiement validé. ${data.credits_added} crédits ajoutés.`);
+              loadAdminPayments();
+            } catch (e) {
+              alert(e.message);
+              btn.disabled = false;
+            }
+          });
+        });
+      })
+      .catch(e => { list.innerHTML = `<div>Erreur : ${e.message}</div>`; });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      findVersionElements().forEach(el => {
+        el.addEventListener("click", fiveTapHandler);
+        el.style.cursor = "pointer";
+        el.title = "Appuyer 5 fois pour l'accès admin";
+      });
+    }, 300);
+
+    document.getElementById("adminCloseBtn")?.addEventListener("click", closeAdminPanel);
+    document.getElementById("adminOpenBtn")?.addEventListener("click", loadAdminPayments);
+    document.getElementById("adminAccessPanel")?.addEventListener("click", e => {
+      if (e.target.id === "adminAccessPanel") closeAdminPanel();
+    });
+  });
+})();
+
+
+/* ============================================================
+   ALICIA MINI APPS — TELEGRAM PROFILE + STARS
+   ============================================================ */
+(() => {
+  const tg = window.Telegram?.WebApp;
+  const backend = () => window.AliciaBackend?.url || "https://aliciaminipps.onrender.com";
+
+  function telegramUser() {
+    const u = tg?.initDataUnsafe?.user;
+    return u ? {
+      id: Number(u.id),
+      first_name: u.first_name || "",
+      last_name: u.last_name || "",
+      username: u.username || "",
+      photo_url: u.photo_url || ""
+    } : null;
+  }
+
+  function setAvatar() {
+    const u = telegramUser();
+    if (!u) return;
+    document.querySelectorAll(
+      'img[data-telegram-avatar], #profileAvatar, #userAvatar, .profile-avatar img, .avatar img'
+    ).forEach(img => {
+      if (u.photo_url) {
+        img.src = u.photo_url;
+        img.alt = u.first_name || "Profil";
+        img.referrerPolicy = "no-referrer";
+      }
+    });
+    document.querySelectorAll("[data-telegram-name]").forEach(el => {
+      el.textContent = [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username || "Utilisateur";
+    });
+  }
+
+  function setupAdminAutoId() {
+    const input = document.getElementById("adminUserIdInput");
+    if (input) {
+      const u = telegramUser();
+      if (u) {
+        input.value = String(u.id);
+        input.readOnly = true;
+      }
+    }
+  }
+
+  async function startStarsPayment(stars) {
+    const status = document.getElementById("aliciaStarsPaymentStatus");
+    const u = telegramUser();
+    if (!u) throw new Error("Ouvre Alicia Mini Apps depuis Telegram.");
+
+    if (status) status.textContent = "Préparation du paiement…";
+
+    // The backend must return invoice_url from a Telegram Stars invoice.
+    const result = await window.AliciaBackend.createPayment(stars);
+
+    if (!result.invoice_url) {
+      if (status) status.textContent =
+        "Le paiement est prêt côté compte, mais la facture Telegram Stars n'est pas encore reliée au bot.";
+      throw new Error("invoice_url manquant côté backend.");
+    }
+
+    if (!tg?.openInvoice) {
+      window.open(result.invoice_url, "_blank");
+      return result;
+    }
+
+    if (status) status.textContent = "Ouverture du paiement Telegram…";
+
+    tg.openInvoice(result.invoice_url, async (paymentStatus) => {
+      if (paymentStatus === "paid") {
+        if (status) status.textContent = "Paiement reçu. Validation des crédits en cours…";
+        try {
+          await window.AliciaBackend.waitForPayment(result.payment_id, 30, 2000);
+          if (status) status.textContent = "Paiement reçu. Les crédits seront ajoutés après validation.";
+        } catch (e) {
+          if (status) status.textContent = "Paiement reçu. Actualise ton compte dans quelques instants.";
+        }
+      } else if (paymentStatus === "cancelled") {
+        if (status) status.textContent = "Paiement annulé.";
+      } else if (paymentStatus === "failed") {
+        if (status) status.textContent = "Paiement échoué.";
+      }
+    });
+
+    return result;
+  }
+
+  function setupStarsButtons() {
+    document.querySelectorAll("[data-stars-plan]").forEach(btn => {
+      if (btn.dataset.aliciaStarsBound) return;
+      btn.dataset.aliciaStarsBound = "1";
+      btn.addEventListener("click", async () => {
+        const stars = Number(btn.dataset.starsPlan);
+        try {
+          await startStarsPayment(stars);
+        } catch (e) {
+          const status = document.getElementById("aliciaStarsPaymentStatus");
+          if (status) status.textContent = e.message;
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      setAvatar();
+      setupAdminAutoId();
+      setupStarsButtons();
+    }, 400);
+  });
+
+  window.AliciaTelegramProfile = { get: telegramUser, refreshPhoto: setAvatar };
+  window.AliciaStars = { pay: startStarsPayment };
 })();

@@ -72,7 +72,7 @@
                 <div class="profile-photo">
                     <img
                         id="userPhoto"
-                        src="assets/logo.png"
+                        src="assets/logo.png" onerror="this.onerror=null; this.src='assets/nexa-logo.png';"
                         alt="Alicia"
                     >
                 </div>
@@ -699,7 +699,7 @@
 
                         <img
                             id="profilePhoto"
-                            src="assets/logo.png"
+                            src="assets/logo.png" onerror="this.onerror=null; this.src='assets/nexa-logo.png';"
                             alt="Profil"
                         >
 
@@ -936,6 +936,41 @@
          JAVASCRIPT
     ========================== -->
     <script src="app.js"></script>
+
+
+<!-- Alicia Mini Apps Admin access: 5 taps on the version -->
+<div id="adminAccessPanel" class="alicia-admin-panel" hidden>
+  <div class="alicia-admin-box">
+    <button id="adminCloseBtn" type="button" aria-label="Fermer">×</button>
+    <div class="alicia-admin-title">Administration</div>
+    <div class="alicia-admin-subtitle">Accès administrateur Alicia Mini Apps</div>
+    <label for="adminUserIdInput">ID Telegram administrateur</label>
+    <input id="adminUserIdInput" type="number" inputmode="numeric" placeholder="Votre ID Telegram">
+    <button id="adminOpenBtn" type="button">Ouvrir</button>
+    <div id="adminPaymentsList" class="alicia-admin-payments"></div>
+  </div>
+</div>
+
+
+<!-- Alicia Mini Apps — Telegram Stars -->
+<section id="aliciaStarsPaymentSection" class="alicia-stars-payment" hidden>
+  <div class="alicia-stars-payment-card">
+    <div class="alicia-stars-payment-title">⭐ Abonnement</div>
+    <div class="alicia-stars-payment-subtitle">Paie avec tes Telegram Stars.</div>
+    <div class="alicia-stars-plans">
+      <button type="button" class="alicia-stars-plan" data-stars-plan="100">
+        <strong>100 ⭐</strong><span>Choisir</span>
+      </button>
+      <button type="button" class="alicia-stars-plan" data-stars-plan="500">
+        <strong>500 ⭐</strong><span>Choisir</span>
+      </button>
+      <button type="button" class="alicia-stars-plan" data-stars-plan="1000">
+        <strong>1000 ⭐</strong><span>Choisir</span>
+      </button>
+    </div>
+    <div id="aliciaStarsPaymentStatus" class="alicia-stars-payment-status"></div>
+  </div>
+</section>
 
 </body>
 </html>

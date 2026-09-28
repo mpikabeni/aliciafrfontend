@@ -23,3 +23,13 @@ La création d'une vraie facture Telegram Stars doit encore être reliée au bot
 
 
 Logo du splash : assets/nexa-logo.png
+
+
+Correctif: logo de secours ajouté pour les photos de profil Telegram indisponibles.
+
+
+## Ajouts
+- ID admin récupéré automatiquement depuis Telegram.
+- Photo Telegram utilisée quand `photo_url` est fournie par Telegram WebApp.
+- Section de paiement Telegram Stars ajoutée.
+- Le backend doit renvoyer `invoice_url` depuis `/payments/create` pour que `Telegram.WebApp.openInvoice()` puisse ouvrir la facture réelle.
