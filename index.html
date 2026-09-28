@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#0b0b0f">
+    <meta name="description" content="Alicia — Codage et génération d'images">
+
+    <title>Alicia</title>
+
+    <!-- Telegram WebApp -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- Icônes -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    >
+
+    <!-- Style principal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         SPLASH SCREEN
+    ========================== -->
+    <div id="splashScreen" class="splash-screen">
+
+        <div class="splash-content">
+
+            <div class="alicia-logo">
+                <div class="logo-glow"></div>
+                <div class="logo-circle">
+                    <i class="ri-sparkling-2-fill"></i>
+                </div>
+            </div>
+
+            <h1>ALICIA</h1>
+
+            <p>Créée par NEXA</p>
+
+            <div class="loading-container">
+                <div class="loading-bar">
+                    <div id="loadingProgress"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         APPLICATION
+    ========================== -->
+    <div id="app" class="app hidden">
+
+        <!-- =====================
+             HEADER
+        ====================== -->
+        <header class="top-header">
+
+            <div class="profile-area">
+
+                <div class="profile-photo">
+                    <img
+                        id="userPhoto"
+                        src="assets/logo.png"
+                        alt="Alicia"
+                    >
+                </div>
+
+                <div class="profile-text">
+                    <span class="hello">Bonjour 👋</span>
+                    <h2 id="userName">Alicia</h2>
+                </div>
+
+            </div>
+
+            <button
+                class="icon-button"
+                id="notificationButton"
+                aria-label="Notifications"
+            >
+                <i class="ri-notification-3-line"></i>
+            </button>
+
+        </header>
+
+
+        <!-- =====================
+             MAIN CONTENT
+        ====================== -->
+        <main class="main-content">
+
+            <!-- =================
+                 HOME
+            ================== -->
+            <section
+                id="homePage"
+                class="page active-page"
+            >
+
+                <!-- Stars Card -->
+                <div class="stars-card">
+
+                    <div class="stars-card-top">
+
+                        <div>
+                            <span class="card-label">
+                                Mes Étoiles
+                            </span>
+
+                            <div class="stars-balance">
+                                <strong id="starsBalance">0</strong>
+
+                                <span class="star-symbol">
+                                    ★
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="stars-icon">
+                            <i class="ri-star-fill"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="stars-card-bottom">
+
+                        <span>
+                            Solde disponible
+                        </span>
+
+                        <button
+                            class="small-action"
+                            id="starsButton"
+                        >
+                            Voir les détails
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================
+                     WELCOME
+                ================== -->
+                <div class="welcome-block">
+
+                    <span class="section-small">
+                        Bienvenue sur
+                    </span>
+
+                    <h1>
+                        Alicia
+                        <span>Studio</span>
+                    </h1>
+
+                    <p>
+                        Crée, code et génère tes idées
+                        depuis Telegram.
+                    </p>
+
+                </div>
+
+
+                <!-- =================
+                     MAIN TOOLS
+                ================== -->
+                <div class="section-header">
+
+                    <h3>Que veux-tu faire ?</h3>
+
+                </div>
+
+
+                <div class="tools-grid">
+
+                    <!-- CODING -->
+                    <button
+                        class="tool-card coding-card"
+                        data-page="codingPage"
+                    >
+
+                        <div class="tool-icon">
+                            <i class="ri-code-s-slash-line"></i>
+                        </div>
+
+                        <div class="tool-info">
+
+                            <h3>Codage</h3>
+
+                            <p>
+                                Crée et développe
+                                tes projets.
+                            </p>
+
+                        </div>
+
+                        <i class="ri-arrow-right-up-line tool-arrow"></i>
+
+                    </button>
+
+
+                    <!-- IMAGE -->
+                    <button
+                        class="tool-card image-card"
+                        data-page="imagePage"
+                    >
+
+                        <div class="tool-icon">
+                            <i class="ri-image-ai-line"></i>
+                        </div>
+
+                        <div class="tool-info">
+
+                            <h3>Images IA</h3>
+
+                            <p>
+                                Transforme tes idées
+                                en images.
+                            </p>
+
+                        </div>
+
+                        <i class="ri-arrow-right-up-line tool-arrow"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- =================
+                     QUICK ACTIONS
+                ================== -->
+                <div class="section-header">
+
+                    <h3>Accès rapide</h3>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+                    <button
+                        class="quick-button"
+                        data-page="projectsPage"
+                    >
+                        <span class="quick-icon">
+                            <i class="ri-folder-3-line"></i>
+                        </span>
+
+                        <span>
+                            Projets
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        data-page="galleryPage"
+                    >
+                        <span class="quick-icon">
+                            <i class="ri-gallery-line"></i>
+                        </span>
+
+                        <span>
+                            Galerie
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        data-page="starsPage"
+                    >
+                        <span class="quick-icon">
+                            <i class="ri-star-line"></i>
+                        </span>
+
+                        <span>
+                            Étoiles
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        data-page="profilePage"
+                    >
+                        <span class="quick-icon">
+                            <i class="ri-user-3-line"></i>
+                        </span>
+
+                        <span>
+                            Profil
+                        </span>
+                    </button>
+
+                </div>
+
+
+                <!-- =================
+                     RECENT
+                ================== -->
+                <div class="section-header recent-header">
+
+                    <h3>Récemment</h3>
+
+                    <button
+                        class="text-button"
+                        data-page="projectsPage"
+                    >
+                        Tout voir
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="recentProjects"
+                    class="recent-list"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            <i class="ri-folder-open-line"></i>
+                        </div>
+
+                        <p>
+                            Aucun projet pour le moment.
+                        </p>
+
+                        <span>
+                            Commence ton premier projet.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CODING PAGE
+            ========================== -->
+            <section
+                id="codingPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Espace</span>
+                        <h1>Codage</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="coding-hero">
+
+                    <div class="coding-hero-icon">
+                        <i class="ri-code-s-slash-line"></i>
+                    </div>
+
+                    <h2>Ton espace de création</h2>
+
+                    <p>
+                        Crée tes projets directement
+                        depuis ton téléphone.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        id="newProjectButton"
+                    >
+                        <i class="ri-add-line"></i>
+                        Nouveau projet
+                    </button>
+
+                </div>
+
+
+                <div class="section-header">
+
+                    <h3>Mes projets</h3>
+
+                </div>
+
+
+                <div
+                    id="projectsList"
+                    class="projects-list"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            <i class="ri-code-box-line"></i>
+                        </div>
+
+                        <p>
+                            Aucun projet
+                        </p>
+
+                        <span>
+                            Crée ton premier projet.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 IMAGE PAGE
+            ========================== -->
+            <section
+                id="imagePage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Espace</span>
+                        <h1>Images IA</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="image-generator-card">
+
+                    <div class="generator-icon">
+                        <i class="ri-image-ai-line"></i>
+                    </div>
+
+                    <h2>
+                        Imagine quelque chose.
+                    </h2>
+
+                    <p>
+                        Décris ton idée et transforme-la
+                        en image.
+                    </p>
+
+
+                    <div class="prompt-box">
+
+                        <textarea
+                            id="imagePrompt"
+                            placeholder="Décris l'image que tu veux créer..."
+                            maxlength="2000"
+                        ></textarea>
+
+                        <div class="prompt-bottom">
+
+                            <span id="promptCounter">
+                                0 / 2000
+                            </span>
+
+                            <button
+                                class="generate-button"
+                                id="generateImageButton"
+                            >
+                                <i class="ri-sparkling-2-line"></i>
+                                Générer
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-header">
+
+                    <h3>Ma galerie</h3>
+
+                    <button
+                        class="text-button"
+                        data-page="galleryPage"
+                    >
+                        Voir tout
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="imageGalleryPreview"
+                    class="image-gallery-preview"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            <i class="ri-image-line"></i>
+                        </div>
+
+                        <p>
+                            Aucune image
+                        </p>
+
+                        <span>
+                            Tes créations apparaîtront ici.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PROJECTS PAGE
+            ========================== -->
+            <section
+                id="projectsPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Mes</span>
+                        <h1>Projets</h1>
+                    </div>
+
+                </div>
+
+                <div
+                    id="allProjects"
+                    class="projects-list"
+                ></div>
+
+            </section>
+
+
+            <!-- =========================
+                 GALLERY PAGE
+            ========================== -->
+            <section
+                id="galleryPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Mes</span>
+                        <h1>Créations</h1>
+                    </div>
+
+                </div>
+
+                <div
+                    id="fullGallery"
+                    class="full-gallery"
+                ></div>
+
+            </section>
+
+
+            <!-- =========================
+                 STARS PAGE
+            ========================== -->
+            <section
+                id="starsPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Mes</span>
+                        <h1>Étoiles</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="stars-big-card">
+
+                    <span>
+                        Solde actuel
+                    </span>
+
+                    <div class="big-stars-value">
+
+                        <strong id="starsPageBalance">
+                            0
+                        </strong>
+
+                        <i class="ri-star-fill"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <i class="ri-information-line"></i>
+
+                    <p>
+                        Tes Étoiles pourront être utilisées
+                        pour les services disponibles
+                        dans Alicia Studio.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PROFILE PAGE
+            ========================== -->
+            <section
+                id="profilePage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Mon</span>
+                        <h1>Profil</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="large-profile-photo">
+
+                        <img
+                            id="profilePhoto"
+                            src="assets/logo.png"
+                            alt="Profil"
+                        >
+
+                    </div>
+
+                    <h2 id="profileName">
+                        Alicia
+                    </h2>
+
+                    <span id="profileUsername">
+                        Telegram
+                    </span>
+
+                </div>
+
+
+                <div class="profile-info-list">
+
+                    <div class="profile-info-item">
+
+                        <div class="info-item-icon">
+                            <i class="ri-user-line"></i>
+                        </div>
+
+                        <div>
+                            <span>Nom</span>
+                            <strong id="profileFullName">
+                                Alicia
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-info-item">
+
+                        <div class="info-item-icon">
+                            <i class="ri-star-line"></i>
+                        </div>
+
+                        <div>
+                            <span>Étoiles</span>
+                            <strong id="profileStars">
+                                0 ⭐
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SETTINGS PAGE
+            ========================== -->
+            <section
+                id="settingsPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <button
+                        class="back-button"
+                        data-page="homePage"
+                    >
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+
+                    <div>
+                        <span>Application</span>
+                        <h1>Paramètres</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="settings-list">
+
+                    <button class="settings-item">
+
+                        <span class="settings-icon">
+                            <i class="ri-palette-line"></i>
+                        </span>
+
+                        <span class="settings-text">
+                            <strong>Apparence</strong>
+                            <small>
+                                Personnaliser Alicia
+                            </small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+
+                    </button>
+
+
+                    <button class="settings-item">
+
+                        <span class="settings-icon">
+                            <i class="ri-global-line"></i>
+                        </span>
+
+                        <span class="settings-text">
+                            <strong>Langue</strong>
+                            <small>
+                                Français
+                            </small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+
+                    </button>
+
+
+                    <button class="settings-item">
+
+                        <span class="settings-icon">
+                            <i class="ri-question-line"></i>
+                        </span>
+
+                        <span class="settings-text">
+                            <strong>Aide</strong>
+                            <small>
+                                Centre d'aide Alicia
+                            </small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+
+                    </button>
+
+
+                    <button class="settings-item">
+
+                        <span class="settings-icon">
+                            <i class="ri-information-line"></i>
+                        </span>
+
+                        <span class="settings-text">
+                            <strong>À propos</strong>
+                            <small>
+                                Alicia Studio
+                            </small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="app-version">
+                    Alicia Studio • NEXA
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================
+             BOTTOM NAVIGATION
+        ========================== -->
+        <nav class="bottom-nav">
+
+            <button
+                class="nav-item active"
+                data-page="homePage"
+            >
+                <i class="ri-home-5-line"></i>
+                <span>Accueil</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="codingPage"
+            >
+                <i class="ri-code-s-slash-line"></i>
+                <span>Codage</span>
+            </button>
+
+
+            <button
+                class="nav-main-button"
+                data-page="imagePage"
+            >
+                <span>
+                    <i class="ri-sparkling-2-fill"></i>
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="galleryPage"
+            >
+                <i class="ri-image-line"></i>
+                <span>Créations</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="profilePage"
+            >
+                <i class="ri-user-3-line"></i>
+                <span>Profil</span>
+            </button>
+
+        </nav>
+
+
+    </div>
+
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+    <div
+        id="toast"
+        class="toast"
+    >
+        <i class="ri-information-line"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+    <script src="app.js"></script>
+
+</body>
+</html>
