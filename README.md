@@ -20,3 +20,6 @@ L'intégration :
 Important :
 Le frontend ne contient aucun token secret.
 La création d'une vraie facture Telegram Stars doit encore être reliée au bot Telegram côté serveur après confirmation du paiement.
+
+
+Logo du splash : assets/nexa-logo.png

@@ -1646,3 +1646,13 @@ img {
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,15px) scale(.94)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 @keyframes aliciaPress{0%{transform:scale(1)}45%{transform:scale(.95)}100%{transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* NEXA logo added to Alicia Mini Apps splash */
+.alicia-splash-logo {
+  width: min(210px, 58vw);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  margin: 0 auto 18px;
+  filter: drop-shadow(0 0 18px rgba(106, 13, 173, .55));
+}
