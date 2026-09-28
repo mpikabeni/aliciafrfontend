@@ -36,3 +36,7 @@ Correctif: logo de secours ajouté pour les photos de profil Telegram indisponib
 
 
 UI améliorée par une couche CSS uniquement. Les fonctions existantes et le JavaScript sont conservés.
+
+
+## UI revision
+Réorganisation responsive de la mise en page : splash, header, accueil, cartes, navigation basse et pages internes. Les fonctions JavaScript existantes sont conservées.

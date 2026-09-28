@@ -1824,3 +1824,449 @@ section { scroll-margin-top:90px; }
   }
   .alicia-stars-plans { grid-template-columns:1fr !important; }
 }
+
+
+/* =========================================================
+   ALICIA STUDIO — FINAL UI LAYOUT
+   Visual/layout corrections only. Existing JS functions kept.
+   ========================================================= */
+
+/* ---------- App viewport ---------- */
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom) + 18px);
+}
+
+/* ---------- Splash ---------- */
+.splash-screen {
+    padding: 22px 18px;
+}
+
+.splash-content {
+    width: min(100%, 360px);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.alicia-splash-logo {
+    width: 142px !important;
+    height: 142px !important;
+    max-width: 42vw !important;
+    max-height: 42vw !important;
+    object-fit: contain !important;
+    margin: 0 auto 18px !important;
+
+    /* The supplied NEXA image has a black square background.
+       Screen blending makes that black background visually disappear. */
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 18px rgba(145, 44, 255, .42));
+}
+
+.alicia-logo {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 20px;
+}
+
+.logo-circle {
+    width: 78px;
+    height: 78px;
+    border-radius: 24px;
+    font-size: 34px;
+}
+
+.logo-glow {
+    inset: -13px;
+}
+
+.splash-content h1 {
+    margin: 0;
+    font-size: 29px;
+    line-height: 1;
+    letter-spacing: 3px;
+}
+
+.splash-content p {
+    margin-top: 8px;
+}
+
+.loading-container {
+    width: 145px;
+    margin-top: 25px;
+}
+
+/* ---------- Header ---------- */
+.top-header {
+    min-height: 70px;
+    padding:
+        calc(10px + env(safe-area-inset-top))
+        16px
+        10px;
+}
+
+.profile-area {
+    min-width: 0;
+    gap: 10px;
+}
+
+.profile-photo {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 14px;
+}
+
+.profile-text {
+    min-width: 0;
+}
+
+.profile-text .hello {
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.profile-text h2 {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+}
+
+/* ---------- Main spacing ---------- */
+.main-content {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 14px 16px 28px;
+}
+
+.page {
+    width: 100%;
+}
+
+.page.active-page {
+    animation: pageIn .22s ease;
+}
+
+/* ---------- Home balance card ---------- */
+.stars-card {
+    padding: 18px;
+    min-height: 154px;
+    border-radius: 22px;
+}
+
+.stars-card-top {
+    align-items: flex-start;
+}
+
+.stars-balance {
+    margin-top: 4px;
+    gap: 6px;
+}
+
+.stars-balance strong {
+    font-size: 34px;
+}
+
+.star-symbol {
+    font-size: 24px;
+}
+
+.stars-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 21px;
+}
+
+.stars-card-bottom {
+    margin-top: 25px;
+}
+
+.small-action {
+    white-space: nowrap;
+}
+
+/* ---------- Welcome ---------- */
+.welcome-block {
+    padding: 22px 2px 17px;
+}
+
+.welcome-block h1 {
+    font-size: 28px;
+}
+
+.welcome-block p {
+    max-width: 100%;
+    margin-top: 7px;
+}
+
+/* ---------- Tool section ---------- */
+.section-header {
+    margin: 6px 2px 10px;
+}
+
+.tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.tool-card {
+    min-height: 132px;
+    padding: 15px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 0 12px;
+    border-radius: 15px;
+    font-size: 23px;
+}
+
+.tool-info h3 {
+    font-size: 15px;
+}
+
+.tool-info p {
+    max-width: 145px;
+    margin-top: 4px;
+    font-size: 10px;
+}
+
+.tool-arrow {
+    top: 14px;
+    right: 14px;
+}
+
+/* ---------- Quick access ---------- */
+.quick-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.quick-button {
+    min-height: 74px;
+    padding: 10px 4px;
+    border-radius: 15px;
+    gap: 6px;
+    font-size: 9px;
+}
+
+.quick-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: 18px;
+}
+
+/* ---------- Recent ---------- */
+.recent-header {
+    margin-top: 21px;
+}
+
+.empty-state {
+    padding: 27px 16px;
+}
+
+/* ---------- Page title ---------- */
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.page-title > div {
+    min-width: 0;
+}
+
+.page-title h1 {
+    font-size: 25px;
+    line-height: 1.05;
+}
+
+.page-title span {
+    font-size: 11px;
+}
+
+/* ---------- Stars page ---------- */
+.stars-big-card {
+    padding: 20px;
+    border-radius: 21px;
+}
+
+.alicia-subscription-card {
+    margin-top: 14px;
+    padding: 17px;
+    border-radius: 20px;
+}
+
+.alicia-stars-plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px;
+}
+
+.alicia-stars-plan {
+    min-height: 66px;
+    padding: 10px 5px;
+}
+
+/* ---------- Profile ---------- */
+.profile-card {
+    padding: 22px 16px;
+    border-radius: 22px;
+}
+
+.large-profile-photo {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 12px;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.large-profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------- Settings/version ---------- */
+.settings-list {
+    gap: 9px;
+}
+
+.settings-item {
+    min-height: 62px;
+}
+
+.app-version {
+    padding: 24px 0 10px;
+    font-size: 10px;
+}
+
+/* ---------- Bottom navigation ---------- */
+.bottom-nav {
+    left: 50%;
+    bottom: 0;
+    width: min(100%, 700px);
+    height: calc(68px + env(safe-area-inset-bottom));
+    padding: 7px 5px env(safe-area-inset-bottom);
+    align-items: flex-start;
+    border-radius: 18px 18px 0 0;
+}
+
+.nav-item {
+    height: 54px;
+    width: 20%;
+    gap: 3px;
+    font-size: 8.5px;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+.nav-main-button {
+    height: 54px;
+}
+
+.nav-main-button span {
+    width: 50px;
+    height: 50px;
+    margin-top: -15px;
+    border-radius: 17px;
+}
+
+/* ---------- Toast/admin ---------- */
+.toast {
+    bottom: calc(82px + env(safe-area-inset-bottom));
+}
+
+.alicia-admin-panel {
+    padding: 14px;
+}
+
+.alicia-admin-box {
+    width: min(440px, 100%);
+    max-height: 82vh;
+    padding: 20px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 380px) {
+    .main-content {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .stars-card {
+        min-height: 148px;
+        padding: 17px;
+    }
+
+    .stars-balance strong {
+        font-size: 32px;
+    }
+
+    .tools-grid {
+        gap: 8px;
+    }
+
+    .tool-card {
+        min-height: 126px;
+        padding: 13px;
+    }
+
+    .tool-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .quick-grid {
+        gap: 6px;
+    }
+
+    .quick-button {
+        min-height: 70px;
+    }
+
+    .nav-main-button span {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Keep the desktop preview centered without changing Mini App behavior. */
+@media (min-width: 701px) {
+    .app {
+        max-width: 700px;
+        margin: 0 auto;
+        background: var(--bg);
+    }
+}
