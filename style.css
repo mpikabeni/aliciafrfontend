@@ -1764,3 +1764,63 @@ img {
 .alicia-stars-plan strong,.alicia-stars-plan span { display:block; }
 .alicia-stars-plan span { font-size:11px; margin-top:4px; opacity:.7; }
 @media(max-width:380px){.alicia-stars-plans{grid-template-columns:1fr;}}
+
+/* Alicia Studio — UI cleanup layer. Existing JS/HTML functions preserved. */
+body { overflow-x:hidden; }
+main { padding-bottom:112px !important; }
+section { scroll-margin-top:90px; }
+
+.stars-card,.balance-card,#starsCard {
+  overflow:hidden;
+  position:relative;
+}
+.tool-card,.feature-card,.action-card {
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.tool-card:active,.feature-card:active,.action-card:active {
+  transform:scale(.985);
+}
+
+.quick-grid,.quick-actions,.shortcuts-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.quick-grid>*,.quick-actions>*,.shortcuts-grid>* { min-width:0; }
+
+.project-card,.project-item,.recent-item,.gallery-item { min-height:64px; }
+
+.alicia-stars-payment { margin:14px 0 24px !important; }
+.alicia-stars-payment-card {
+  border:1px solid rgba(106,13,173,.08);
+}
+.alicia-stars-plan {
+  min-height:72px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.alicia-splash-logo {
+  position:relative !important;
+  display:block !important;
+  width:min(190px,48vw) !important;
+  height:auto !important;
+  margin:0 auto 16px !important;
+  object-fit:contain !important;
+}
+
+.alicia-admin-box { max-width:480px; }
+
+@media (max-width:560px) {
+  main { padding-left:14px !important; padding-right:14px !important; }
+  .quick-grid,.quick-actions,.shortcuts-grid {
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+  }
+  .quick-grid>*,.quick-actions>*,.shortcuts-grid>* {
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+  .alicia-stars-plans { grid-template-columns:1fr !important; }
+}

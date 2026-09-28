@@ -33,3 +33,6 @@ Correctif: logo de secours ajouté pour les photos de profil Telegram indisponib
 - Photo Telegram utilisée quand `photo_url` est fournie par Telegram WebApp.
 - Section de paiement Telegram Stars ajoutée.
 - Le backend doit renvoyer `invoice_url` depuis `/payments/create` pour que `Telegram.WebApp.openInvoice()` puisse ouvrir la facture réelle.
+
+
+UI améliorée par une couche CSS uniquement. Les fonctions existantes et le JavaScript sont conservés.
