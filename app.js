@@ -1242,6 +1242,8 @@ document.addEventListener("DOMContentLoaded",addTouchEffects);
   }
 
   function updateAliciaCreditDisplays(credits) {
+    const starsPage = document.getElementById("starsPageBalance");
+    if (starsPage) starsPage.textContent = Number(credits || 0).toLocaleString("fr-FR");
     const ids = ["creditsBalance", "aliciaCredits", "profileCredits", "homeCredits"];
     ids.forEach(id => {
       const el = document.getElementById(id);
@@ -1491,7 +1493,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const u = telegramUser();
     if (!u) return;
     document.querySelectorAll(
-      'img[data-telegram-avatar], #profileAvatar, #userAvatar, .profile-avatar img, .avatar img'
+      'img[data-telegram-avatar], #profileAvatar, #userAvatar, #userPhoto, #profilePhoto, .profile-avatar img, .avatar img, .large-profile-photo img'
     ).forEach(img => {
       if (u.photo_url) {
         img.src = u.photo_url;
@@ -1544,6 +1546,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           await window.AliciaBackend.waitForPayment(result.payment_id, 30, 2000);
           if (status) status.textContent = "Paiement reçu. Les crédits seront ajoutés après validation.";
+          try { await window.AliciaBackend.refreshCredits(); } catch (_) {}
         } catch (e) {
           if (status) status.textContent = "Paiement reçu. Actualise ton compte dans quelques instants.";
         }

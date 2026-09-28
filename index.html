@@ -31,9 +31,9 @@
          SPLASH SCREEN
     ========================== -->
     <div id="splashScreen" class="splash-screen">
-    <img class="alicia-splash-logo" src="assets/nexa-logo.png" alt="NEXA" />
-
         <div class="splash-content">
+
+            <img class="alicia-splash-logo" src="assets/nexa-logo.png" alt="NEXA" />
 
             <div class="alicia-logo">
                 <div class="logo-glow"></div>
@@ -635,34 +635,27 @@
 
 
                 <div class="stars-big-card">
-
-                    <span>
-                        Solde actuel
-                    </span>
-
+                    <span>Mes crédits</span>
                     <div class="big-stars-value">
-
-                        <strong id="starsPageBalance">
-                            0
-                        </strong>
-
-                        <i class="ri-star-fill"></i>
-
+                        <strong id="starsPageBalance">0</strong>
+                        <span style="font-size:14px;font-weight:700;">crédits</span>
                     </div>
-
                 </div>
 
-
                 <div class="info-card">
-
                     <i class="ri-information-line"></i>
+                    <p>Achète un abonnement avec Telegram Stars. Après paiement, l'administrateur valide le nombre de crédits à ajouter.</p>
+                </div>
 
-                    <p>
-                        Tes Étoiles pourront être utilisées
-                        pour les services disponibles
-                        dans Alicia Studio.
-                    </p>
-
+                <div class="alicia-subscription-card">
+                    <div class="alicia-subscription-title">⭐ Abonnements</div>
+                    <div class="alicia-subscription-subtitle">Paiement sécurisé avec Telegram Stars</div>
+                    <div class="alicia-stars-plans">
+                        <button type="button" class="alicia-stars-plan" data-stars-plan="100"><strong>100 ⭐</strong><span>Payer</span></button>
+                        <button type="button" class="alicia-stars-plan" data-stars-plan="500"><strong>500 ⭐</strong><span>Payer</span></button>
+                        <button type="button" class="alicia-stars-plan" data-stars-plan="1000"><strong>1000 ⭐</strong><span>Payer</span></button>
+                    </div>
+                    <div id="aliciaStarsPaymentStatus" class="alicia-stars-payment-status"></div>
                 </div>
 
             </section>
@@ -951,26 +944,6 @@
   </div>
 </div>
 
-
-<!-- Alicia Mini Apps — Telegram Stars -->
-<section id="aliciaStarsPaymentSection" class="alicia-stars-payment" hidden>
-  <div class="alicia-stars-payment-card">
-    <div class="alicia-stars-payment-title">⭐ Abonnement</div>
-    <div class="alicia-stars-payment-subtitle">Paie avec tes Telegram Stars.</div>
-    <div class="alicia-stars-plans">
-      <button type="button" class="alicia-stars-plan" data-stars-plan="100">
-        <strong>100 ⭐</strong><span>Choisir</span>
-      </button>
-      <button type="button" class="alicia-stars-plan" data-stars-plan="500">
-        <strong>500 ⭐</strong><span>Choisir</span>
-      </button>
-      <button type="button" class="alicia-stars-plan" data-stars-plan="1000">
-        <strong>1000 ⭐</strong><span>Choisir</span>
-      </button>
-    </div>
-    <div id="aliciaStarsPaymentStatus" class="alicia-stars-payment-status"></div>
-  </div>
-</section>
 
 </body>
 </html>
